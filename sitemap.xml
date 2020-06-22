@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://seineo.github.io/Algorithms-and-Data-Structures.html</loc>
+    
+    <lastmod>2020-06-22T13:34:40.294Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://seineo.github.io/Style.html</loc>
+    
+    <lastmod>2020-06-22T13:34:20.806Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://seineo.github.io/int-ch-getchar.html</loc>
     
-    <lastmod>2020-06-22T12:55:39.967Z</lastmod>
+    <lastmod>2020-06-22T13:22:35.442Z</lastmod>
     
   </url>
   

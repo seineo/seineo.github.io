@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>旅行商问题与最可靠路径问题</title>
+    <link href="/%E6%97%85%E8%A1%8C%E5%95%86%E9%97%AE%E9%A2%98%E4%B8%8E%E6%9C%80%E5%8F%AF%E9%9D%A0%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98.html"/>
+    <url>/%E6%97%85%E8%A1%8C%E5%95%86%E9%97%AE%E9%A2%98%E4%B8%8E%E6%9C%80%E5%8F%AF%E9%9D%A0%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><ol><li>旅行商问题（TSP）：从一点出发遍历其余点各一次再回到该点，要求总路径最短。</li><li>最可靠路径问题：图中的任一条边都有其可靠的概率，求任意两点间的最可靠路径。</li></ol><h1 id="问题建模"><a href="#问题建模" class="headerlink" title="问题建模"></a>问题建模</h1><h2 id="旅行商问题"><a href="#旅行商问题" class="headerlink" title="旅行商问题"></a>旅行商问题</h2><p>若图中有$n$个点，我们可将它们编号为$0,…,n-1$（<strong>本文讨论都默认0为起点</strong>）,构造对应的邻接矩阵c<sub>nxn</sub>，令x<sub>nxn</sub>为0-1矩阵，若x<sub>ij</sub>为1，则点$i$到点$j$属于当前选择路径的一部分，反之不属于。那么我们就可以很容易写出如下目标函数</p><script type="math/tex;mode=display">min \sum_{i=1}^{n}\sum_{j=1}^{n}c_{ij}x_{ij}</script><p>显然，在此题中一条合法的路径应该是类似下方这样的回路。</p><p><img src="img/posts/tsp1.png" srcset="/img/loading.gif" alt=""></p><p>这样的一条回路，其中各点的入度、出度都应为0。所以我们可以写出以下两条约束条件</p><script type="math/tex;mode=display">\begin{equation}s.t. \left\{\begin{aligned}\sum_{i=1}^{n}x_{ij} = 1, j = 1,...,n \\\sum_{j=1}^{n}x_{ij} = 1, i = 1,...,n \end{aligned} \right.\end{equation}</script><p>但是仅仅满足这两个条件的路径可能并不是合法路径，因为它可能是多条回路的并集而非一个回路。如下图所示。</p><p><img src="img/posts/tsp2.png" srcset="/img/loading.gif" alt=""></p><p>因此我们还需要第三个约束条件</p><script type="math/tex;mode=display">u_i - u_j + nx_{ij} \leq n - 1， 1< i \neq j < n</script><p>其中$u_i$表示编号为$i$的点在当前选择路径的序号（该点为<strong>非起点</strong>，在本文中即非0）。加上这一约束条件，我们就可以确定合法路径，证明如下。</p><h3 id="约束三的证明"><a href="#约束三的证明" class="headerlink" title="约束三的证明"></a>约束三的证明</h3><ol><li><p>必要条件</p><p><img src="img/posts/tsp3.png" srcset="/img/loading.gif" alt=""></p></li></ol><p><strong>（注意：起点0并没有对应的$u$值，它不参与计算。）</strong></p><p>对于一条合法路径，根据$x_{ij}$的取值，我们有两种情况要讨论</p><ul><li>若$x_{ij}=1$，即点$i$与点$j$相邻，则$|u_i-u_j| \leq 1$，所以$u_i-u_j+n \times 1 \leq n-1$，成立。</li><li>若$x_{ij}=0$，即点$i$与点$j$不相邻，而$max \space u_i=n$，$min \space u_j = 2$，那么$max \space (u_i-u_j) + n \times 0=n-2 &lt; n-1$，也成立。</li></ul><p>因此，加上约束三后的约束条件是确定合法路径的必要条件。</p><ol><li>充分条件</li></ol><p><img src="img/posts/tsp4.png" srcset="/img/loading.gif" alt=""></p><p>我们使用反证法。满足前两个约束的非法路径肯定是多条回路的并集，我们选择<strong>不包含起点的某个回路</strong>来讨论。比如我们选中上图的右回路，我们假定其中各点对应$u$值如图所示（其实对应$u$值具体为多少并不重要，只要是连续的即可）。我们可以写出以下式子：</p><script type="math/tex;mode=display">\begin{aligned}\left\{\begin{aligned}u_2 - u_3 + n \times 1 \leq n - 1 \\u_3 - u_4 + n \times 1 \leq n - 1 \\ u_4 - u_2 + n \times 1 \leq n - 1\end{aligned} \right.\end{aligned}</script><p>全部式子加和，可得</p><script type="math/tex;mode=display">k \times n \leq k \times (n - 1)</script><p>显然，该式不成立。因此，加上约束三后的约束条件是确定合法路径的充分条件。</p><p>综上，加上约束三后的约束条件是确定合法路径的充分必要条件。</p><h2 id="最可靠路径问题"><a href="#最可靠路径问题" class="headerlink" title="最可靠路径问题"></a>最可靠路径问题</h2><p>对一个图G&lt; V, E &gt;，其任意一条边$e_i \in E$都有其可靠的概率$p_i$，任意两点的最可靠路径我们的目标函数大致可以写成</p><script type="math/tex;mode=display">max \sum p_i</script><p>这个最大值其实并不好求，我们可以将其转化为最短路径问题。</p><p>令各边长为$l_i = log_2 \frac{1}{p_i}$，$p_i$越大，$\frac{1}{p_i}$就越小，由于$log$函数是单调递增的函数，那么$l_i$也就越小。</p><p>即，我们的目标函数变为</p><script type="math/tex;mode=display">\begin{aligned}max \sum p_i &= min \space log_2\frac{1}{p_i} \\             &= min \space -log_2p_i\end{aligned}</script><p>这就完成了从最可靠路径问题到最短路径问题的转化。求解最短路径的方法多样，就不在此多加探讨了。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术闲谈</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>大数据建模</tag>
+      
+      <tag>图论</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>多元线性回归</title>
     <link href="/%E5%A4%9A%E5%85%83%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92.html"/>
     <url>/%E5%A4%9A%E5%85%83%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92.html</url>

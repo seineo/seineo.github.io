@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://seineo.github.io/week2-Stacks-and-Queues-Elementary-Sorts.html</loc>
+    
+    <lastmod>2020-10-16T09:00:18.586Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://seineo.github.io/week1-union-find.html</loc>
     
     <lastmod>2020-10-16T01:55:50.484Z</lastmod>

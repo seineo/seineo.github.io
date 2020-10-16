@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>week2: Stacks and Queues &amp; Elementary Sorts</title>
+    <link href="/week2-Stacks-and-Queues-Elementary-Sorts.html"/>
+    <url>/week2-Stacks-and-Queues-Elementary-Sorts.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="泛型与可迭代的数据结构"><a href="#泛型与可迭代的数据结构" class="headerlink" title="泛型与可迭代的数据结构"></a>泛型与可迭代的数据结构</h1><h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><p>在java中实现泛型十分简单，只需定义类时在类名后加上<code>&lt;类型名&gt;</code>，然后在类中用到此类型数据时通通使用<code>类型名</code>修饰即可。如</p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Stack</span>&lt;<span class="hljs-title">Item</span>&gt; </span>&#123;    <span class="hljs-keyword">private</span> Item[] s;    ...&#125;</code></pre><h2 id="可迭代"><a href="#可迭代" class="headerlink" title="可迭代"></a>可迭代</h2><p>若想自定义的数据结构是可迭代的，那么就需要实现<code>Iterable</code>接口，重写<code>iterator()</code>方法，其会返回一个迭代器，定义如下：</p><pre><code class="hljs java"><span class="hljs-comment">// Iterable interface, built in to java</span><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Iterable</span>&lt;<span class="hljs-title">Item</span>&gt; </span>&#123;    <span class="hljs-function">Iterator&lt;Item&gt; <span class="hljs-title">iterator</span><span class="hljs-params">()</span></span>;&#125;</code></pre><p>当然，我们需要自己定义这个迭代器是如何遍历我们所写的数据结构的。java提供了<code>Iterator</code>接口，我们实现它即可。</p><pre><code class="hljs java"><span class="hljs-comment">// Iterator interface, built in to java</span><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Iterator</span>&lt;<span class="hljs-title">Item</span>&gt; </span>&#123;    <span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">hasNext</span><span class="hljs-params">()</span></span>;    <span class="hljs-function">Item <span class="hljs-title">next</span><span class="hljs-params">()</span></span>;    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">remove</span><span class="hljs-params">()</span></span>;  <span class="hljs-comment">// optional; use at your own risk</span>&#125;</code></pre><p>在client程序中，可以使用范围for循环来进行迭代遍历：</p><pre><code class="hljs java"><span class="hljs-keyword">for</span> (String s : stack)    StdOut.println(s);</code></pre><p>其等价于：</p><pre><code class="hljs java">Iterator&lt;String&gt; i = stack.iterator();<span class="hljs-keyword">while</span> (i.hasNext()) &#123;    String s = i.next();    StdOut.println(s);&#125;</code></pre><h1 id="基础排序算法"><a href="#基础排序算法" class="headerlink" title="基础排序算法"></a>基础排序算法</h1><h2 id="回调（callback）"><a href="#回调（callback）" class="headerlink" title="回调（callback）"></a>回调（callback）</h2><p>我们的排序方法在不知道传入的数据类型是什么时，是如何在排序中比较各个元素的呢？使用回调函数。</p><p>客户程序传入需要排序的数组，我们的排序方法在比较元素时会调用该元素对象的<code>compareTo()</code>方法来完成比较。</p><p>即对于一个以比较元素为基础的排序方法而言，传进来的对象需自己是<code>可比较的（Comparable）</code>，在java中就是需要实现<code>Comparable</code>接口，重写<code>compareTo()</code>方法。</p><pre><code class="hljs java"><span class="hljs-comment">// Comparable interface, built in to java</span><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Comparable</span>&lt;<span class="hljs-title">Item</span>&gt; </span>&#123;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">compareTo</span><span class="hljs-params">(Item that)</span></span>;&#125;</code></pre><p>然后我们的排序方法将传进来的数组当成可比较对象的数组即可，如：</p><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">sort</span><span class="hljs-params">(Comparable[] a)</span> </span>&#123;    ...&#125;</code></pre><h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><p>在这几个基础排序算法中，我们着重讨论下插入排序。</p><p>插入排序是时间复杂度为O($n^2$)、稳定（stable）且原地（in place）的排序算法，它在<strong>数组接近有序</strong>和<strong>数组较小</strong>时常被选用来排序。为什么呢？</p><ol><li>数组接近有序。插入排序是每次将当前元素与前面的元素一一比较，直到找到小于等于它的元素就在该位置插入。若数组接近有序，那么插入排序比较和交换的次数就很少，能在O(n)的时间内完成。</li><li>数组较小。当数组较小时，插入排序是很快的，因为它是原地的（in place），没有较多的开销。此时它常用来代替归并排序（merge sort）和快速排序（quick sort），因为这两个排序的递归调用对带来额外的栈开销。</li></ol><h1 id="Assignment-Deques-and-Randomized-Queues"><a href="#Assignment-Deques-and-Randomized-Queues" class="headerlink" title="Assignment: Deques and Randomized Queues"></a>Assignment: Deques and Randomized Queues</h1><p>代码见<a href="https://github.com/seineo/Algorithms/blob/master/Part1/week2/README.md" target="_blank" rel="noopener">这里</a>。在这主要说明下完成作业的几个关键点：</p><ol><li><strong>loitering</strong>。在链表实现deque的过程中，由于有<code>next</code>和<code>prev</code>两个引用，稍有不慎就会出现loitering。以<code>addFirst</code>函数为例，添加一个新的first节点后，如果仅仅设置了该节点的<code>next</code>和<code>prev</code>引用，是会出现loitering的。若链表不止有这一个新增的节点，那么原来的first节点的<code>prev</code>应该指向它，即<code>oldFirst.prev = first</code>。</li><li><strong>随机队列的<code>dequeue</code>函数</strong>。由于随机队列是随机删除一个元素，若用数组实现，那一下标直接就空了，如果置之不理，仍然是在后面入列，则出列操作不好实现。为了解决这一问题，我们可以交换删除元素位置的值和队尾元素的值。</li><li><strong>bonus</strong>：bonus的问题我也不会，是在论坛上了解到的方法——水塘抽样。水塘抽样是一种统计的随机算法，在这里不作探讨，不了解的朋友可以参见：<a href="https://blog.csdn.net/javastart/article/details/50610868" target="_blank" rel="noopener">Reservoir sampling（水塘抽样）</a>。</li></ol><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul><li><a href="https://stackoverflow.com/questions/736920/is-there-ever-a-good-reason-to-use-insertion-sort" target="_blank" rel="noopener">Is there ever a good reason to use Insertion Sort?</a></li><li><a href="https://stackoverflow.com/questions/8101546/why-is-insertion-sort-better-than-quick-sort-for-small-list-of-elements" target="_blank" rel="noopener">Why is Insertion sort better than Quick sort for small list of elements?</a></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>课程学习</category>
+      
+      <category>Algorithms, Part 1</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>java</tag>
+      
+      <tag>排序</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>旅行商问题与最可靠路径问题</title>
     <link href="/%E6%97%85%E8%A1%8C%E5%95%86%E9%97%AE%E9%A2%98%E4%B8%8E%E6%9C%80%E5%8F%AF%E9%9D%A0%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98.html"/>
     <url>/%E6%97%85%E8%A1%8C%E5%95%86%E9%97%AE%E9%A2%98%E4%B8%8E%E6%9C%80%E5%8F%AF%E9%9D%A0%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98.html</url>
@@ -20,9 +49,9 @@
     
     <tags>
       
-      <tag>大数据建模</tag>
-      
       <tag>图论</tag>
+      
+      <tag>大数据建模</tag>
       
     </tags>
     

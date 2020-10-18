@@ -4,11 +4,38 @@
   
   
   <entry>
+    <title>主成分分析</title>
+    <link href="/%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90.html"/>
+    <url>/%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>主成分分析主要应用于降维。如下图所示，若干三维空间的点都落在同一平面上，那么我们就可以使用二维坐标来表示它们，而无需三维，这就是降维。</p><p><img src="img/posts/主成分分析1.png" srcset="/img/loading.gif" alt=""></p><p>由于本文是讨论如何建模，有较多的数学抽象，初识主成分分析的朋友可以先看看<a href="https://www.matongxue.com/madocs/1025/" target="_blank" rel="noopener">这篇文章</a>的前半部分以获得感性的认识再继续往下看。</p><p>降维可以描述如下：设</p><script type="math/tex;mode=display">x_i = \{x_{i1}, x_{i2}, ..., x_{in}\}^T \in R^n</script><p>为第$i$个样本，其为$n$维列向量，而</p><script type="math/tex;mode=display">X = \{x_1, x_2, ..., x_m\}</script><p>为有$m$个样本的样本空间。当样本点$x_i$的维数很高时，这些数据样本在$n$维空间的分布通常是稀疏的，这些$n$维样本实际可能只属于一个低维的子空间，如属于某个$d$维子空间（$d &lt; n$）。</p><h1 id="问题建模"><a href="#问题建模" class="headerlink" title="问题建模"></a>问题建模</h1><p><img src="img/posts/主成分分析2.png" srcset="/img/loading.gif" alt=""></p><p>如上图所示，假设$n$维样本点$x_i$投影到$d$维子空间的投影点为$\hat{x_i}$，$d$维子空间的一组标准正交基为$w_1, w_2,…,w_d$，其中</p><script type="math/tex;mode=display">w_i = \{w_{i1}, w_{i2},...,w_{in}\}^T</script><p>以$w_1,w_2,…,w_d$为列的矩阵记为</p><script type="math/tex;mode=display">W = \{w_1, w_2,...,w_d\}</script><p>由于$W$由标准正交基组成，则$W^TW=E$，$E$为$d$阶单位矩阵。有了标准正交基，我们就可以将$\hat{x_i}$表示如下：</p><script type="math/tex;mode=display">\begin{aligned}\hat{x_i} &= z_{i1}w_1 + z_{i2}w_2 + ... + z_{id}w_d \\          &= Wz_i\end{aligned}</script><p>其中，</p><script type="math/tex;mode=display">z_i = \{z_{i1}, z_{i2},...,z_{id}\}^T</script><p>为$\hat{x_i}$在基$w_1,w_2,…,w_d$下的坐标，其第$j$个坐标就是$x_i$在$w_j$上的投影z<sub>ij</sub>，它的值为$x_i$和$w_j$的内积，即z<sub>ij</sub> $=w_j^Tx_i$（$j=1,..,d$）。或者我们可以不用向量相乘的表示方式，而用高中的知识，内积z<sub>ij</sub> $= x_i \cdot w_j = |x_i||w_j|cos\theta$，如下图所示。</p><p><img src="img/posts/主成分分析3.png" srcset="/img/loading.gif" alt=""></p><p>在知道了原样本投影到子空间的坐标后，我们便可以建立模型了。我们的目标是降维后的值与原样本值的误差尽可能小，那么也就是两者在空间上的坐标要尽可能地近。即目标函数为：</p><script type="math/tex;mode=display">min \sum_{i=1}^m\|\hat{x_i}-x_i\Vert_2^2</script><p>这个形式不利于求解，我们需要进一步处理，使用矩阵形式表达。为了下面计算的方便，我们对$\hat{x_i} = Wz_i$方程两边同时右乘一个$W^T$，又$W^TW=E$，得</p><script type="math/tex;mode=display">\begin{aligned}\hat{x_i} &= Wz_i \\W^T\hat{x_i} &= W^TWz_i \\W^T\hat{x_i} &= z_i \\\end{aligned}</script><p>因此，</p><script type="math/tex;mode=display">\begin{aligned}\|\hat{x_i}-x_i\Vert_2^2 &= (\hat{x_i}-x_i)^T(\hat{x_i} - x_i)\\&= \hat{x_i}^T\hat{x_i}-2\hat{x_i}x_i+x_i^Tx_i \\&= z_i^TW^TWz_i - 2z^TW^Tx_i + x_i^Tx_i \\&= z_i^Tz_i - 2x_i^TW^Tx_i + x_i^Tx_i \\&= x_i^TWW^Tx_i - 2x_i^TWW^Tx_i + x_i^Tx_i \\&= -x_i^TWW^Tx_i + x_i^Tx_i \end{aligned}</script><p>由于$x_i$均为给定的样本点，所以$x_i^Tx_i$为常数，于是</p><script type="math/tex;mode=display">\begin{aligned}\sum_{i=1}^m\|\hat{x_i}-x_i\Vert_2^2 &= \sum_{i=1}^m-x_i^TWW^Tx_i + x_i^Tx_i \\&= \sum_{i=1}^m-x_i^TWW^Tx_i + C\end{aligned}</script><p>其中$C$为常数。为了进一步的简化矩阵的表达，我们注意到对于一个列向量$S_i$有这样的性质：$S_i^TS_i=tr(S_iS_i^T)$，其中$tr()$表示对矩阵的对角线求和。那么</p><script type="math/tex;mode=display">\begin{aligned}\sum_{i=1}^mS_i^TS_i &= tr\left (  \begin{array}{c}  [S_1,S_2,...,S_m]\left [  \begin{array}{c}  S_1^T \\  S_2^T \\  ... \\  S_m^T  \end{array}  \right]  \end{array}\right) \\&= tr(SS^T) \\&= tr(S^TS)\end{aligned}</script><p>其中$S=[S_1,S_2,…,S_m]$为以$S_1,S_2,…,S_m$为列的矩阵。令$S_i=z_i=W^Tx_i$，则有$S=W^TX$，</p><script type="math/tex;mode=display">\begin{aligned}\sum_{i=1}^m\|\hat{x_i}-x_i\Vert_2^2 &= C-\sum_{i=1}^mS_i^TS_i \\&= C - tr(SS^T) \\&= C - tr(W^TXX^TW)\end{aligned}</script><p>我们要</p><script type="math/tex;mode=display">min \sum_{i=1}^m\|\hat{x_i}-x_i\Vert_2^2</script><p>也就是要</p><script type="math/tex;mode=display">max \space tr(W^TXX^TW)</script><p>于是主成分分析的数学模型为</p><script type="math/tex;mode=display">\begin{aligned}\left\{\begin{array}{l}max \space tr(W^TXX^TW) \\s.t. W^TW=E\end{array}\right.\end{aligned}</script>]]></content>
+    
+    
+    <categories>
+      
+      <category>课程学习</category>
+      
+      <category>大数据优化建模</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>大数据</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>k-means聚类</title>
     <link href="/k-means%E8%81%9A%E7%B1%BB.html"/>
     <url>/k-means%E8%81%9A%E7%B1%BB.html</url>
     
-    <content type="html"><![CDATA[<h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>聚类应用于生活的方方面面，如人脸识别，每一个人就是一个类，将数据库中的照片与现拍的照片进行特征值的比较后划分到一个类中（即确定一个人）；又如疫情健康码，有绿码、黄码和红码三个类，根据人的居住地、最近去向、接触人群等属性将其划分到一个类中（即分配一个健康码）。</p><p>聚类问题可以描述如下：假设有$n$个无标记样本</p><script type="math/tex;mode=display">D = \{x_1,x_2,...,x_n\}</script><p>任一样本为$d$维向量</p><script type="math/tex;mode=display">x_i = \{x_{i1},x_{i2}, ..., x_{id}\}^T</script><p>将其按照某种<strong>相似性准则</strong>划分为若干个互不相交 的子集。</p><p>k-means聚类就是指定$k$，将其划分为$k$个互不相交的子集。</p><h1 id="问题建模"><a href="#问题建模" class="headerlink" title="问题建模"></a>问题建模</h1><h2 id="简单的想法"><a href="#简单的想法" class="headerlink" title="简单的想法"></a>简单的想法</h2><p>k-means聚类的<strong>相似性准则</strong>为样本间的<strong>欧式距离</strong>，将离得近的样本看作一个类，离得远的看作不同类。</p><p>因此，对于一个划分</p><script type="math/tex;mode=display">C=\{C_1,C_2,...,C_k\}</script><p>要使其最优，所有类样本到各自类中心的距离之和就应该最小。</p><p>对于类$C_i$，其类中心为</p><script type="math/tex;mode=display">M_i=\frac{1}{|c_i|}\sum_{x \in C_i}x, 1 \leq i \leq k</script><p>即类中心是该类所有类样本和的平均值，则该类所有类样本到类中心的距离之和为</p><script type="math/tex;mode=display">\sum_{x \in C_i}\|x-M_i\Vert</script><p>将$k$个类累加起来，就可以得到所有类样本到各自类中心的距离之和为</p><script type="math/tex;mode=display">\sum_{i=1}^k\sum_{x \in C_i}\|x-M_i\Vert</script><p>那么，我们的模型就可以写出来了：</p><script type="math/tex;mode=display">\begin{aligned}min \sum_{i=1}^k\sum_{x \in C_i} \|x-M_i\Vert^2 \\\begin{equation}s.t. \left\{\begin{array}{l}\cup_{i=1}^k C_i = D \\C_i \cap C_j = \varnothing \\i,j \in {1, 2, ..., k} \\i \neq j\end{array} \right.\end{equation}\end{aligned}</script><p>注意，我们这里目标函数写成平方是为了求解方便，若不加平方，求距离就会带开方，计算不便。</p><h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p>上面的模型有一个明显的缺陷：只考虑了同类的聚集，却没有考虑不同类的分散。</p><p>因此我们可以添加一个目标加以优化：让不同类间的类中点距离之和最大。那么我们就可以得出以下目标函数：</p><script type="math/tex;mode=display">max \sum_{1 \leq i \lt j \leq k} \|M_i-M_j\Vert^2</script><p>模型也就变成了多目标优化模型。为了求解的简便，我们先利用倒数将第二个目标函数转为求最小值，然后采用线性加权法将多目标转为单目标，得以下目标函数：</p><script type="math/tex;mode=display">min \sum_{i=1}^k\sum_{x \in C_i}\|x-M_i\Vert^2 + \sum_{1 \leq i \lt j \leq k} \frac{1}{\|M_i-M_j\Vert^2}</script><p>至此，我们得到了优化后的k-means聚类模型。</p><h2 id="相似性准则"><a href="#相似性准则" class="headerlink" title="相似性准则"></a>相似性准则</h2><p>如前所述，k-means聚类使用欧式距离作为相似性准则，这其实只适用于圆形或椭圆形聚集的数据聚类，如下图所示。</p><p><img src="img/posts/聚类1.png" srcset="/img/loading.gif" alt=""></p><p>而无法对其他多样分类需求的数据进行聚类，如下图，以欧式距离作为相似性准则是无法做到下图这样的分类的。</p><p><img src="img/posts/聚类2.png" srcset="/img/loading.gif" alt=""></p><p>因此，相似性准则并不是普适的，而是各有专攻。如今，人们已经提出了种类繁多的相似性准则，适用于不同的应用场景，若有兴趣，可以去查询相关资料。</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>聚类应用于生活的方方面面，如人脸识别，每一个人就是一个类，将数据库中的照片与现拍的照片进行特征值的比较后划分到一个类中（即确定一个人）；又如疫情健康码，有绿码、黄码和红码三个类，根据人的居住地、最近去向、接触人群等属性将其划分到一个类中（即分配一个健康码）。</p><p>聚类问题可以描述如下：假设有$n$个无标记样本</p><script type="math/tex;mode=display">D = \{x_1,x_2,...,x_n\}</script><p>任一样本为$d$维向量</p><script type="math/tex;mode=display">x_i = \{x_{i1},x_{i2}, ..., x_{id}\}^T</script><p>将其按照某种<strong>相似性准则</strong>划分为若干个互不相交 的子集。</p><p>k-means聚类就是指定$k$，将其划分为$k$个互不相交的子集。</p><h1 id="问题建模"><a href="#问题建模" class="headerlink" title="问题建模"></a>问题建模</h1><h2 id="简单的想法"><a href="#简单的想法" class="headerlink" title="简单的想法"></a>简单的想法</h2><p>k-means聚类的<strong>相似性准则</strong>为样本间的<strong>欧式距离</strong>，将离得近的样本看作一个类，离得远的看作不同类。</p><p>因此，对于一个划分</p><script type="math/tex;mode=display">C=\{C_1,C_2,...,C_k\}</script><p>要使其最优，所有类样本到各自类中心的距离之和就应该最小。</p><p>对于类$C_i$，其类中心为</p><script type="math/tex;mode=display">M_i=\frac{1}{|c_i|}\sum_{x \in C_i}x, 1 \leq i \leq k</script><p>即类中心是该类所有类样本和的平均值，则该类所有类样本到类中心的距离之和为</p><script type="math/tex;mode=display">\sum_{x \in C_i}\|x-M_i\Vert_2</script><p>上式是用$l_2$-范数表示欧式距离，这是十分常见的，更多关于范数的知识可参见：<a href="https://zhuanlan.zhihu.com/p/26884695" target="_blank" rel="noopener">如何通俗易懂地解释「范数」？</a></p><p>将$k$个类累加起来，就可以得到所有类样本到各自类中心的距离之和为</p><script type="math/tex;mode=display">\sum_{i=1}^k\sum_{x \in C_i}\|x-M_i\Vert_2</script><p>那么，我们的模型就可以写出来了：</p><script type="math/tex;mode=display">\begin{aligned}min \sum_{i=1}^k\sum_{x \in C_i} \|x-M_i\Vert_2^2 \\\begin{equation}s.t. \left\{\begin{array}{l}\cup_{i=1}^k C_i = D \\C_i \cap C_j = \varnothing \\i,j \in {1, 2, ..., k} \\i \neq j\end{array} \right.\end{equation}\end{aligned}</script><p>注意，我们这里目标函数写成平方是为了求解方便，若不加平方，求距离就会带开方，计算不便。</p><h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p>上面的模型有一个明显的缺陷：只考虑了同类的聚集，却没有考虑不同类的分散。</p><p>因此我们可以添加一个目标加以优化：让不同类间的类中点距离之和最大。那么我们就可以得出以下目标函数：</p><script type="math/tex;mode=display">max \sum_{1 \leq i \lt j \leq k} \|M_i-M_j\Vert_2^2</script><p>模型也就变成了多目标优化模型。为了求解的简便，我们先利用倒数将第二个目标函数转为求最小值，然后采用线性加权法将多目标转为单目标，得以下目标函数：</p><script type="math/tex;mode=display">min \sum_{i=1}^k\sum_{x \in C_i}\|x-M_i\Vert_2^2 + \sum_{1 \leq i \lt j \leq k} \frac{1}{\|M_i-M_j\Vert_2^2}</script><p>至此，我们得到了优化后的k-means聚类模型。</p><h2 id="相似性准则"><a href="#相似性准则" class="headerlink" title="相似性准则"></a>相似性准则</h2><p>如前所述，k-means聚类使用欧式距离作为相似性准则，这其实只适用于圆形或椭圆形聚集的数据聚类，如下图所示。</p><p><img src="img/posts/聚类1.png" srcset="/img/loading.gif" alt=""></p><p>而无法对其他多样分类需求的数据进行聚类，如下图，以欧式距离作为相似性准则是无法做到这样的分类的。</p><p><img src="img/posts/聚类2.png" srcset="/img/loading.gif" alt=""></p><p>因此，相似性准则并不是普适的，而是各有专攻。如今，人们已经提出了种类繁多的相似性准则，适用于不同的应用场景，若有兴趣，可以去查询相关资料。</p>]]></content>
     
     
     <categories>
@@ -78,9 +105,9 @@
     
     <tags>
       
-      <tag>图论</tag>
-      
       <tag>大数据</tag>
+      
+      <tag>图论</tag>
       
     </tags>
     

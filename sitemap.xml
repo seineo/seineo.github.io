@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://seineo.github.io/week2-Stacks-and-Queues-Elementary-Sorts.html</loc>
+    
+    <lastmod>2020-10-31T14:51:29.707Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://seineo.github.io/week3-Mergesort-Quicksort.html</loc>
+    
+    <lastmod>2020-10-31T14:49:14.391Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://seineo.github.io/%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90.html</loc>
     
     <lastmod>2020-10-18T14:53:57.172Z</lastmod>
@@ -26,13 +40,6 @@
     <loc>https://seineo.github.io/%E5%A4%9A%E5%85%83%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92.html</loc>
     
     <lastmod>2020-10-16T09:19:03.935Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://seineo.github.io/week2-Stacks-and-Queues-Elementary-Sorts.html</loc>
-    
-    <lastmod>2020-10-16T09:00:18.586Z</lastmod>
     
   </url>
   

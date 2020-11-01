@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://seineo.github.io/week4-Priority-Queues.html</loc>
+    <lastmod>2020-11-01</lastmod>
+  </url>  <url>
+    <loc>https://seineo.github.io/%E5%9B%BE%E8%AE%BA%EF%BC%9A%E5%B8%B8%E7%94%A8%E7%9A%84%E6%9C%80%E7%9F%AD%E8%B7%AF%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3.html</loc>
+    <lastmod>2020-11-01</lastmod>
+  </url>  <url>
     <loc>https://seineo.github.io/week2-Stacks-and-Queues-Elementary-Sorts.html</loc>
     <lastmod>2020-10-31</lastmod>
   </url>  <url>
@@ -26,9 +32,6 @@
     <lastmod>2020-10-07</lastmod>
   </url>  <url>
     <loc>https://seineo.github.io/%E5%9B%BE%E8%AE%BA%EF%BC%9A%E6%9C%80%E5%A4%A7%E6%B5%81%E6%9C%80%E5%B0%8F%E5%89%B2%E8%AF%A6%E8%A7%A3.html</loc>
-    <lastmod>2020-10-07</lastmod>
-  </url>  <url>
-    <loc>https://seineo.github.io/%E5%9B%BE%E8%AE%BA%EF%BC%9A%E5%B8%B8%E7%94%A8%E7%9A%84%E6%9C%80%E7%9F%AD%E8%B7%AF%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3.html</loc>
     <lastmod>2020-10-07</lastmod>
   </url>  <url>
     <loc>https://seineo.github.io/int-ch-getchar.html</loc>

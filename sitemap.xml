@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://seineo.github.io/week3-Mergesort-Quicksort.html</loc>
+    
+    <lastmod>2020-11-04T06:25:24.038Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://seineo.github.io/week5-Balanced-Search-Trees.html</loc>
+    
+    <lastmod>2020-11-04T03:15:05.831Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://seineo.github.io/week4-Priority-Queues.html</loc>
     
     <lastmod>2020-11-01T07:44:56.900Z</lastmod>
@@ -19,13 +33,6 @@
     <loc>https://seineo.github.io/week2-Stacks-and-Queues-Elementary-Sorts.html</loc>
     
     <lastmod>2020-10-31T14:51:29.707Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://seineo.github.io/week3-Mergesort-Quicksort.html</loc>
-    
-    <lastmod>2020-10-31T14:49:14.391Z</lastmod>
     
   </url>
   

@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>汇编实验：统计数字个数</title>
+    <link href="/%E6%B1%87%E7%BC%96%E5%AE%9E%E9%AA%8C%EF%BC%9A%E7%BB%9F%E8%AE%A1%E6%95%B0%E5%AD%97%E4%B8%AA%E6%95%B0.html"/>
+    <url>/%E6%B1%87%E7%BC%96%E5%AE%9E%E9%AA%8C%EF%BC%9A%E7%BB%9F%E8%AE%A1%E6%95%B0%E5%AD%97%E4%B8%AA%E6%95%B0.html</url>
+    
+    <content type="html"><![CDATA[<h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>输入一个字符串，统计数字出现的次数。</p><h3 id="算法流程图"><a href="#算法流程图" class="headerlink" title="算法流程图"></a>算法流程图</h3><p><img src="img/posts/汇编实验三.png" srcset="/img/loading.gif" alt=""></p><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><pre><code class="hljs asm">data segmentbuffer db 5 dup(?)input db &#39;please input a number &lt;&#x3D; 5 digits&#39;, 0ah, 0dh, &#39;$&#39;outOfBound db 0ah, 0dh, &#39;error: more than 5 digits&#39;,0ah, 0dh, &#39;$&#39;notANum db 0ah, 0dh, &#39;error: not a number&#39;,0ah, 0dh,&#39;$&#39;data endscode segment      assume ds:data, cs:codestart:mov bl, 0l4:mov ah, 01hint 21hcmp al, 20h   ; 空格结束输入je countcmp al, byte ptr &#39;0&#39;jb l4cmp al, byte ptr &#39;9&#39;ja l4inc bljmp l4count:       mov ah, 0    mov al, bl    ; 将要输出的数字    or  ax, ax    jz  zero    ; 是零则直接输出    mov bx, -1    ; 栈底    push bx    mov bx, 10    ; 除数l5:xor dx, dx   ; 余数清零   div bx   mov cx , ax   ;商   or  cx , dx   jz  print   ; 商与余数全零则结束   push dx   jmp l5zero:  mov dl , 30h   mov ah , 02h   int 21hjmp exit   print:   pop dx   cmp dx , -1   je  exit   add dx , 30h   mov ah , 02h   int 21h   jmp printexit:mov ah, 08h  ;结束时停留int 21h   mov ah , 4ch                  ;返回DOS   int 21hcode endsend start</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术闲谈</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>汇编</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>汇编实验：十进制转二进制</title>
     <link href="/%E6%B1%87%E7%BC%96%E5%AE%9E%E9%AA%8C%EF%BC%9A%E5%8D%81%E8%BF%9B%E5%88%B6%E8%BD%AC%E4%BA%8C%E8%BF%9B%E5%88%B6.html"/>
     <url>/%E6%B1%87%E7%BC%96%E5%AE%9E%E9%AA%8C%EF%BC%9A%E5%8D%81%E8%BF%9B%E5%88%B6%E8%BD%AC%E4%BA%8C%E8%BF%9B%E5%88%B6.html</url>

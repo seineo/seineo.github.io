@@ -4,6 +4,58 @@
   
   
   <entry>
+    <title>地图路由</title>
+    <link href="/%E5%9C%B0%E5%9B%BE%E8%B7%AF%E7%94%B1.html"/>
+    <url>/%E5%9C%B0%E5%9B%BE%E8%B7%AF%E7%94%B1.html</url>
+    
+    <content type="html"><![CDATA[<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><strong>目标。</strong>优化 Dijkstra 算法,使其可以处理给定图的数千条最短路径查询。 一旦你读取图(并<br>可选地预处理),你的程序应该在<strong>亚线性时间</strong>内解决最短路径问题。一种方法是预先计算出<br>所有顶点对的最短路径;然而,你无法承受存储所有这些信息所需的二次空间。你的目标是<br>减少每次最短路径计算所涉及的工作量,而不会占用过多的空间。 建议你选择下面的一些<br>潜在想法来实现,或者你可以开发和实现自己的想法。</p><p><strong>想法 1.</strong> Dijkstra 算法的朴素实现检查图中的所有 V 个顶点。 减少检查的顶点数量的一种策<br>略是一旦发现目的地的最短路径就停止搜索。 通过这种方法,可以使每个最短路径查询的<br>运行时间与 E’ log V’成比例,其中 E’和 V’是 Dijkstra 算法检查的边和顶点数。</p><p><strong>想法 2.</strong> 你可以利用问题的欧式几何来进一步减少搜索时间,这在算法书的第 4.4 节描述过。<br>对于一般图,Dijkstra 通过将 d[w]更新为 d[v] + 从 v 到 w 的距离来松弛边 v-w。 对于地图,<br>则将 d[w]更新为 d[v] + 从 v 到 w 的距离 + 从 w 到 d 的欧式距离 − 从 v 到 d 的欧式距离。<br>这种方法称之为 A*算法。这种启发式方法会有性能上的影响,但不会影响正确性。</p><p><strong>想法 3.</strong> 使用更快的优先队列。 在提供的优先队列中有一些优化空间。 你也可以考虑使用<br>Sedgewick 程序中的多路堆(Multiway heaps, Section 2.4)。</p><h2 id="求解"><a href="#求解" class="headerlink" title="求解"></a>求解</h2><p>我们将分别完成题述的三个想法，将过程可视化，并比较运行时间。</p><p>本文都以起点：6000，终点：1000为例。</p><p><a href="https://github.com/seineo/Algorithms/tree/master/Part2/usa.txt" target="_blank" rel="noopener">测试数据</a></p><p>最终代码：</p><ul><li><a href="https://github.com/seineo/Algorithms/tree/master/Part2/MapRouting.java" target="_blank" rel="noopener">MapRouting.java</a></li><li><a href="https://github.com/seineo/Algorithms/tree/master/Part2/Dijkstra.java" target="_blank" rel="noopener">Dijkstra.java</a></li></ul><h3 id="想法一"><a href="#想法一" class="headerlink" title="想法一"></a>想法一</h3><p>即给定目的地，遇到目的地就停止（early exit）。</p><p>输出如下：</p><pre><code class="hljs shell">running time :358.943s1000 to 6000distance: 6637.540854006546</code></pre><p>可视化如下：</p><p><img src="img/posts/MapRouting1.png" srcset="/img/loading.gif" alt=""></p><p>运行过程中，算法从出发点一圈一圈往外探索，直至遇到目的地。</p><h3 id="想法二"><a href="#想法二" class="headerlink" title="想法二"></a>想法二</h3><p>即给dijkstra加一个启发函数，优先级不止考虑当前点到出发点的距离，也将考虑到目的地的距离。</p><p>输出如下：</p><pre><code class="hljs shell">running time :111.123s1000 to 6000distance: 6637.540854006546</code></pre><p>可视化如下：</p><p><img src="img/posts/MapRouting2.png" srcset="/img/loading.gif" alt=""></p><p>可见，A*算法比dijkstra算法更具目的性，直指目的地探索，运行时间不到dijkstra算法的三分之一。</p><h3 id="想法三"><a href="#想法三" class="headerlink" title="想法三"></a>想法三</h3><p>即更换优先队列，这里我们将索引优先队列更改为索引2-路优先队列。</p><p>输出如下：</p><pre><code class="hljs shell">running time :107.39s1000 to 6000distance: 6637.540854006546</code></pre><p>可视化如下：</p><p><img src="img/posts/MapRouting3.png" srcset="/img/loading.gif" alt=""></p><p>可以发现，使用多路优先队列运行时间又减少了一些。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>课程学习</category>
+      
+      <category>Algorithms, Part 2</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>图论</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>C++返回值优化</title>
+    <link href="/C-%E8%BF%94%E5%9B%9E%E5%80%BC%E4%BC%98%E5%8C%96.html"/>
+    <url>/C-%E8%BF%94%E5%9B%9E%E5%80%BC%E4%BC%98%E5%8C%96.html</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>技术闲谈</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>C++</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>OOP - C++笔记</title>
     <link href="/OOP-C-%E7%AC%94%E8%AE%B0.html"/>
     <url>/OOP-C-%E7%AC%94%E8%AE%B0.html</url>
@@ -294,9 +346,9 @@
     
     <tags>
       
-      <tag>java</tag>
-      
       <tag>排序</tag>
+      
+      <tag>Java</tag>
       
     </tags>
     

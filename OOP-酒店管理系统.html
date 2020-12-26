@@ -1,0 +1,122 @@
+<!DOCTYPE html><html lang="zh-CN" data-default-color-scheme="&#34;light&#34;"><head><meta charset="UTF-8"><link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png"><link rel="icon" type="image/png" href="/img/favicon.png"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,shrink-to-fit=no"><meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="theme-color" content="#2f4154"><meta name="description" content=""><meta name="author" content="John Doe"><meta name="keywords" content=""><title>OOP-酒店管理系统 - seineo&#39;s blog</title><link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css"><link rel="stylesheet" href="/lib/hint/hint.min.css"><link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css"><link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css"><link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css"><link rel="stylesheet" href="/css/main.css"><script src="/js/utils.js"></script><script src="/js/color-schema.js"></script><meta name="generator" content="Hexo 4.2.1"></head><body><header style="height:70vh"><nav id="navbar" class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar"><div class="container"><a class="navbar-brand" href="/">&nbsp;<strong>seineo</strong>&nbsp;</a> <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><div class="animated-icon"><span></span><span></span><span></span></div></button><div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav ml-auto text-center"><li class="nav-item"><a class="nav-link" href="/"><i class="iconfont icon-home-fill"></i> 首页</a></li><li class="nav-item"><a class="nav-link" href="/archives/"><i class="iconfont icon-archive-fill"></i> 归档</a></li><li class="nav-item"><a class="nav-link" href="/categories/"><i class="iconfont icon-category-fill"></i> 分类</a></li><li class="nav-item"><a class="nav-link" href="/tags/"><i class="iconfont icon-tags-fill"></i> 标签</a></li><li class="nav-item"><a class="nav-link" href="/about/"><i class="iconfont icon-user-fill"></i> 关于</a></li><li class="nav-item" id="search-btn"><a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i class="iconfont icon-search"></i>&nbsp;</a></li><li class="nav-item" id="color-toggle-btn"><a class="nav-link" href="javascript:">&nbsp;<i class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a></li></ul></div></div></nav><div class="banner intro-2" id="background" parallax="true" style="background:url(/img/post_bg.jpg) no-repeat center center;background-size:cover"><div class="full-bg-img"><div class="mask flex-center" style="background-color:rgba(0,0,0,.3)"><div class="container page-header text-center fade-in-up"><span class="h2" id="subtitle"></span><div class="mt-3"><span class="post-meta"><i class="iconfont icon-date-fill" aria-hidden="true"></i> <time datetime="2020-12-27 00:03" pubdate>2020年12月27日 凌晨</time></span></div><div class="mt-1"><span class="post-meta mr-2"><i class="iconfont icon-chart"></i> 2.1k 字 </span><span class="post-meta mr-2"><i class="iconfont icon-clock-fill"></i> 25 分钟</span></div></div></div></div></div></header><main><div class="container-fluid"><div class="row"><div class="d-none d-lg-block col-lg-2"></div><div class="col-lg-8 nopadding-md"><div class="container nopadding-md" id="board-ctn"><div class="py-5" id="board"><article class="post-content mx-auto" id="post"><h1 style="display:none">OOP-酒店管理系统</h1><div class="markdown-body" id="post-body"><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>某酒店有客房若干间，其中客房分为不同等级，如豪华、标准、普通等，客房床位数也不同。例如，豪华套房有4个床位，400元/晚；标准客房2个床位，200元/晚；普通客房1个床位，100元/晚。</p><p>顾客分金卡会员、银卡会员、普通会员及非会员，其享受的折扣不同。例如，金卡会员可享受8折优惠，银卡会员可享受9折优惠，普通会员享受95折优惠，非会员不享受优惠。</p><p>当顾客连续入住多天时，也可享受一定的折扣。例如，当顾客连续入住2 - 4晚时，可享受9折优惠；连续入住5 - 8晚时，可享受85折优惠；连续入住9晚以上时，可享受8折优惠。</p><p>采用面向对象的思想，建立系统中清晰的类，分析和定义各个类，每个类中要有各自的属性和方法，并开发一套客房管理系统，实现如下功能：<br>​ （1） 管理员：以管理员身份登录系统，查询当前客房入住及预订情况，并设置客房价格、顾客优惠政策等；<br>​ （2） 酒店前台：以前台身份登录系统，查询当前客房入住及预订情况，为顾客办理入住、退房、换房等服务；顾客退房后为顾客计算消费金额并收费；<br>​ （3） 顾客：可以注册和登录系统，用户在查找到心仪的客房后，登录酒店客房管理系统可提交订单实现客房预订；未入住酒店前1天，可取消客房预订；顾客入住退房后可评论。</p><h2 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h2><p>题目要求我们采用面向对象的思想，为管理员、酒店前台与顾客开发一套酒店管理系统。管理员需要能够登陆系统、查看客房的入住与预定情况、修改客房的价格以及顾客的优惠政策；前台也需要能够登录系统、查看客房的入住与预定情况，还需要能够为顾客办理手续和收费；而顾客需要能够进行注册与登录、选房、预订与评论等操作。</p><p>分析题目可以发现，不同人员的操作存在着一些共性，他们都需要登陆系统、也都可以查看评论。虽然所有人都可以要查看客房的情况，但内部人员和顾客的查看操作是不同的：内部人员需要能够查看当前入住情况、所有的预订情况和指定日期范围的预订情况，而顾客只需看到他们指定日期范围内空闲的客房情况。另外，顾客优惠的政策是所有人可见的，但却只有管理员可以更改。</p><p>要设计一个上述的管理系统，除了业务逻辑，还需要有交互式的界面，本次大作业使用了Qt Creator进行界面设计。除此之外，我们还需要存储人员及客房的相关信息，在这里我们采用Mysql的本地数据库进行存储。</p><h2 id="类图设计及说明"><a href="#类图设计及说明" class="headerlink" title="类图设计及说明"></a>类图设计及说明</h2><h3 id="业务逻辑类图"><a href="#业务逻辑类图" class="headerlink" title="业务逻辑类图"></a>业务逻辑类图</h3><pre><code class="hljs mermaid">classDiagram
+    User &lt;|-- Insider
+    User &lt;|-- Customer
+    Insider &lt;|-- Manager
+    Insider &lt;|-- Reception
+
+	class User &#123;
+	&lt;&lt;abstract&gt;&gt;
+	+checkAllReviews() QsqlQuery
+	+login()* int
+	-QString account
+	-QString password
+	&#125;
+	
+	class Customer &#123;
+	+login() int
+	+getAvailRooms(const QDate&amp;, const QDate&amp;) QSqlQuery
+	+book(const QString&amp;, const QDate&amp;, const QDate&amp;) bool
+	+cancelBook(const QString&amp;, const QDate&amp;) bool
+	+getHistoricalOrders() QSqlQuery
+	+review(const QString&amp;, const QDate&amp;, const QString&amp;) bool
+	+signUp(const QString&amp;, const QString&amp;) bool
+	&#125;
+	
+	class Insider &#123;
+	+login() int
+	+getCheckInInfo(bool) QSqlQuery
+	+getBookInfo(bool) QSqlQuery
+	+getBookInfo(const QDate&amp;, const QDate&amp;, bool) QSqlQuery
+	&#125;
+	
+	class Manager &#123;
+	+setRoomPrice(char, size_t) void
+	+setMemberDiscount(char level, double newDicount) void
+	+setDayDiscount(size_t lo, size_t hi, double newDiscount) bool
+	&#125;
+	
+	class Reception &#123;
+	+checkin(const QString&amp;, const QString&amp;, const QDate&amp;) bool
+	+changeRoom(const QString&amp;, const QString&amp;) bool
+	+checkOut(const QString&amp;, const QString&amp;, const QDate&amp;) bool
+	+calCost(const QString&amp;, const QString&amp;, size_t) double
+	&#125;</code></pre><p>由上述分析，我们可以将业务逻辑抽象表示为以下六个类：用户抽象类<code>User</code>，内部人员类<code>Insider</code>，顾客类<code>Customer</code>，管理员类<code>Manager</code>，前台类<code>Reception</code>和优惠政策类<code>Policy</code>（后文均用类名指代）。</p><p><code>Manager</code>类与<code>Reception</code>类继承<code>Insider</code>类，而<code>Insider</code>类与<code>Customer</code>类又都是<code>User</code>类的子类。<code>User</code>类中有<code>account</code>和<code>password</code>两个私有变量，即每个登录到管理系统的人员都有自己的账号与密码。因为内部人员和顾客的账号密码存在不同的数据库表中，所以<code>User</code>还有一个抽象函数<code>login()</code>，而<code>Insider</code>和<code>Customer</code>分别重写了它。</p><h3 id="系统类图"><a href="#系统类图" class="headerlink" title="系统类图"></a>系统类图</h3><pre><code class="hljs mermaid">classDiagram
+	LoginForm ..&gt; CustomerForm
+	LoginForm ..&gt; ManagerForm
+	LoginForm ..&gt; ReceptionForm
+    ManagerForm *-- Manager
+    ReceptionForm *-- Reception
+    CustomerForm *-- Customer
+    Manager o-- DatabaseUtils
+    Reception o-- DatabaseUtils
+    Customer o-- DatabaseUtils
+    
+	class LoginForm &#123;
+	+on_signInButton_clicked() void
+	+on_registerButton_clicked() void
+	-CustomerWin *customerWin;
+    -ManagerWin *managerWin;
+    -ReceptionWin *receptionWin;
+	&#125;
+	
+	class CustomerForm &#123;
+	+on_book_clicked() void
+    +on_getRooms_clicked() void
+    +on_bookedRooms_clicked() void
+    +on_cancelBook_clicked() void
+    +on_historicalOrders_clicked() void
+    +on_writeReview_clicked() void
+    +on_allReviews_clicked() void
+    +on_tableView_clicked(const QModelIndex &amp;) void
+    -Customer customer;
+    -WriteReview *review;
+	&#125;
+	
+	class ManagerForm &#123;
+	+on_checkinInfo_clicked() void
+	+on_allBookInfo_clicked() void
+	+on_checkInfo_clicked() void
+	+modify_clicked() void
+	+on_allReviews_clicked() void void
+	-Manager manager
+	-ModifyInfo *modifyInfo
+	&#125;
+	
+	class ReceptionForm &#123;
+	+on_checkinInfo_clicked() void
+	+on_allBookInfo_clicked() void
+	+on_checkInfo_clicked() void
+	+on_checkin_clicked() void
+	+on_checkout_clicked() void
+	+on_changeRoom_clicked() void
+	+on_allReviews_clicked() void
+	+on_tableView_clicked(const QModelIndex &amp;) void
+	-Reception reception
+	-ChangeRoom* changeRoom
+	&#125;
+	
+	class Customer &#123;
+	&#125;
+	
+	class Manager &#123;
+	&#125;
+	
+	class Reception &#123;
+	&#125;
+	
+	class DatabaseUtils &#123;
+	+connect() void
+	+close() void
+	+executeUpdate(const QString&amp;, const QVariantList&amp; args &#x3D; QVariantList()) bool
+	+executeSelect(const QString&amp;, const QVariantList&amp; args &#x3D; QVariantList()) QSqlQuery
+	&#125;</code></pre><p>表示层有四个用户界面，初始是登陆界面<code>LoginForm</code>，根据账号的不同分别进入三个不同的业务处理界面：管理员的<code>ManagerForm</code>、酒店前台的<code>ReceptionForm</code>和顾客的<code>CustomerForm</code>。这三个界面有着不同的控件，对应着不同的槽函数，槽函数中调用了业务逻辑层中对应类的函数来完成业务的处理。而业务逻辑层中的处理有时需要访问数据库，这时就需要调用数据库访问帮助类<code>DatabaseUtils</code>来完成数据的增删查改。</p><h2 id="E-R图设计及说明"><a href="#E-R图设计及说明" class="headerlink" title="E-R图设计及说明"></a>E-R图设计及说明</h2><p>（由于本门课是面向对象程序设计，数据库部分简略带过）</p><h3 id="系统E-R图"><a href="#系统E-R图" class="headerlink" title="系统E-R图"></a>系统E-R图</h3><p><img src="/img/posts/hotelMS系统E-R图.png" srcset="/img/loading.gif" alt=""></p><p>一个顾客账号可以预订多个客房，且顾客可以对每个订单进行不同的评价。根据订单的进度，订单可能是以下状态的一种：已预订、已入住或已完成。</p><h3 id="内部人员E-R图"><a href="#内部人员E-R图" class="headerlink" title="内部人员E-R图"></a>内部人员E-R图</h3><p><img src="img/posts/hotelMS内部人员E-R图.png" srcset="/img/loading.gif" alt=""></p><p>内部人员的账号密码独立存在一个表中。</p><h2 id="系统功能设计"><a href="#系统功能设计" class="headerlink" title="系统功能设计"></a>系统功能设计</h2><p><img src="img/posts/hotelMS系统功能设计.png" srcset="/img/loading.gif" alt=""></p><h2 id="实现流程"><a href="#实现流程" class="headerlink" title="实现流程"></a>实现流程</h2><p>实现流程表示如下：</p><p>（注：紫色矩形表示的是操作的名称，蓝色矩形才是实际的操作）</p><h3 id="管理员"><a href="#管理员" class="headerlink" title="管理员"></a>管理员</h3><p><img src="img/posts/hotelMS管理员流程图.png" srcset="/img/loading.gif" alt=""></p><h3 id="前台"><a href="#前台" class="headerlink" title="前台"></a>前台</h3><p><img src="img/posts/hotelMS前台流程图.png" srcset="/img/loading.gif" alt=""></p><h3 id="顾客"><a href="#顾客" class="headerlink" title="顾客"></a>顾客</h3><p><strong>注：这里的有效时间是在题目的基础上，参考了现实中酒店的做法，设定为入住日期前一天17:00前</strong>。</p><p><img src="img/posts/hotelMS顾客流程图.png" srcset="/img/loading.gif" alt=""></p><h2 id="问题及解决"><a href="#问题及解决" class="headerlink" title="问题及解决"></a>问题及解决</h2><ol><li><p>类的继承关系不明</p><p>一开始没有insider这个类，因为以为查看房间情况的函数是通用的，只需<code>Manager</code>、<code>Reception</code>与<code>Customer</code>各自重写即可，后来才发现内部人员的查看方式较为多样，需要一个内部人员类才行。</p></li><li><p>订单状态不知如何处理</p><p>因为顾客入住酒店是有三种状态的：预订、入住与退房，一开始想建立三个联系表，当预订转为入住，就从预订表中删除并添加到入住表中；退房时，将从入住表中删除并添加到已完成订单表中。但后来通过与同学讨论，找到了更简单有效的方法，即只建立一个联系表，订单加上一个状态字段表示其状态。</p></li><li><p>政策是否应该抽象为类</p><p>一开始我将政策抽象为一个<code>Policy</code>类，优惠政策为静态私有变量，所有人员可以通过其静态成员函数获取当前的政策，而<code>Manager</code>类是友元类，可以直接修改优惠政策。但后来我才发现这样有很大的问题，管理员通过成员函数修改<code>Policy</code>的静态私有变量是只在运行时有效的，当程序再次运行时又会恢复原样；且一个类全是静态函数与静态变量，似乎这个类也没有存在的必要。因此，我将<code>Policy</code>类删除，将优惠政策放入数据库中。</p></li></ol><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul><li><a href="http://www.uml.org.cn/oobject/201211231.asp" target="_blank" rel="noopener">深入浅出UML类图</a></li><li><a href="https://www.yzer.club/markdown-mermaid-class-diagram/" target="_blank" rel="noopener">Markdown 中使用 mermaid 类图</a></li><li><a href="https://www.meetingcpp.com/blog/items/refactoring-my-qt-database-code.html" target="_blank" rel="noopener">Refactoring my Qt database code</a></li><li><a href="https://blog.csdn.net/u012940001/article/details/76622730" target="_blank" rel="noopener">PO、BO、VO、POJO、DTO、DAO分别代表什么意思</a></li><li><a href="https://stackoverflow.com/questions/28388666/how-to-check-if-two-date-ranges-overlap-in-mysql" target="_blank" rel="noopener">How to check if two date ranges overlap in mysql?</a></li><li><a href="https://blog.csdn.net/wojiuguowei/article/details/71294434" target="_blank" rel="noopener">QT QTableView 获取单击选中行的内容</a></li><li><a href="https://blog.csdn.net/qq_33308135/article/details/98038794" target="_blank" rel="noopener">Qt 多个控件 对应一个槽函数</a></li><li><a href="https://blog.csdn.net/weixin_43384257/article/details/89294811" target="_blank" rel="noopener">Qt把QString类型转换为char类型</a></li><li><a href="https://baike.baidu.com/item/%E4%B8%89%E5%B1%82%E6%9E%B6%E6%9E%84" target="_blank" rel="noopener">三层架构</a></li></ul></div><hr><div><div class="post-metas mb-3"><div class="post-meta mr-3"><i class="iconfont icon-category"></i> <a class="hover-with-bg" href="/categories/%E8%AF%BE%E7%A8%8B%E5%AD%A6%E4%B9%A0/">课程学习</a> <a class="hover-with-bg" href="/categories/%E8%AF%BE%E7%A8%8B%E5%AD%A6%E4%B9%A0/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">面向对象程序设计</a></div><div class="post-meta"><i class="iconfont icon-tags"></i> <a class="hover-with-bg" href="/tags/C/">C++</a></div></div><p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p><div class="post-prevnext row"><article class="post-prev col-6"></article><article class="post-next col-6"><a href="/%E5%9C%B0%E5%9B%BE%E8%B7%AF%E7%94%B1.html"><span class="hidden-mobile">地图路由</span> <span class="visible-mobile">下一篇</span> <i class="iconfont icon-arrowright"></i></a></article></div></div></article></div></div></div><div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn"><div id="toc"><p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p><div id="tocbot"></div></div></div></div></div></main><a id="scroll-top-button" href="#" role="button"><i class="iconfont icon-arrowup" aria-hidden="true"></i></a><div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable modal-lg" role="document"><div class="modal-content"><div class="modal-header text-center"><h4 class="modal-title w-100 font-weight-bold">搜索</h4><button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body mx-3"><div class="md-form mb-5"><input type="text" id="local-search-input" class="form-control validate"> <label data-error="x" data-success="v" for="local-search-input">关键词</label></div><div class="list-group" id="local-search-result"></div></div></div></div></div><footer class="mt-5"><div class="text-center py-3"><div><a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a></div></div></footer><script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script><script src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script><script src="/js/debouncer.js"></script><script src="/js/main.js"></script><script src="/js/lazyload.js"></script><script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js"></script><script src="/js/clipboard-use.js"></script><script src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js"></script><script>$(document).ready(function(){var t=$("#board-ctn").offset().top;tocbot.init({tocSelector:"#tocbot",contentSelector:"#post-body",headingSelector:"h1,h2,h3,h4,h5,h6",linkClass:"tocbot-link",activeLinkClass:"tocbot-active-link",listClass:"tocbot-list",isCollapsedClass:"tocbot-is-collapsed",collapsibleClass:"tocbot-is-collapsible",collapseDepth:0,scrollSmooth:!0,headingsOffset:-t}),0<$(".toc-list-item").length&&$("#toc").css("visibility","visible")})</script><script src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js"></script><script>var typed=new Typed("#subtitle",{strings:["  ","OOP-酒店管理系统&nbsp;"],cursorChar:"_",typeSpeed:70,loop:!1});typed.stop(),$(document).ready(function(){$(".typed-cursor").addClass("h2"),typed.start()})</script><script src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js"></script><script>anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))</script><script src="/js/local-search.js"></script><script>var path="/local-search.xml",inputArea=document.querySelector("#local-search-input");inputArea.onclick=function(){searchFunc(path,"local-search-input","local-search-result"),this.onclick=null}</script><script src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script><link rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css"><script>$("#post img:not(.no-zoom img, img[no-zoom]), img[zoom]").each(function(){var t=document.createElement("a");$(t).attr("data-fancybox","images"),$(t).attr("href",$(this).attr("src")),$(this).wrap(t)})</script><script src="https://cdn.staticfile.org/mermaid/8.5.0/mermaid.min.js"></script><script>window.mermaid&&mermaid.initialize({theme:"default"})</script></body></html>
